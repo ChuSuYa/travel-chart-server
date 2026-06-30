@@ -1,0 +1,14 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: travel-chart-search
+  elasticsearch:
+    uris: http://localhost:9200
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: search-consumer-group
+
+jwt:
+  secret: travel-chart-jwt-secret-key-2024
