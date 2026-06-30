@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: travel-chart-gateway
+  config:
+    import: optional:nacos:gateway.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+      config:
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml

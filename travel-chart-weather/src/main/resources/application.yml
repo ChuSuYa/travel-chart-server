@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: travel-chart-weather
+  config:
+    import: optional:nacos:travel-chart-weather.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+      config:
+        import-check:
+          enabled: false
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml

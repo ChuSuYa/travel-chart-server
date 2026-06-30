@@ -1,0 +1,19 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: travel-chart-social
+  config:
+    import: optional:nacos:travel-chart-social.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+      config:
+        import-check:
+          enabled: false
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
