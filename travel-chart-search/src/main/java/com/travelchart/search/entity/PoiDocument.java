@@ -46,6 +46,17 @@ public class PoiDocument {
     @Field(type = FieldType.Keyword)
     private String imageUrl;
 
+    @Field(type = FieldType.Keyword)
+    private String type;
+
+    /** Whether this POI is primarily indoor: true=indoor, false=outdoor, null=unknown */
+    @Field(type = FieldType.Boolean)
+    private Boolean indoor;
+
+    /** Best season to visit, e.g. "spring", "summer", "autumn", "winter", "all_year" */
+    @Field(type = FieldType.Keyword)
+    private String season;
+
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
     private Date createTime;
 }

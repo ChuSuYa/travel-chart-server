@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("tg_companion_request")
+@TableName("tg_companion")
 public class CompanionRequest {
     @TableId(type = IdType.AUTO)
     private Long id;

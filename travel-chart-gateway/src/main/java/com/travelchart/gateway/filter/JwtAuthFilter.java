@@ -3,7 +3,6 @@ package com.travelchart.gateway.filter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
@@ -49,9 +48,12 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         "/api/user/token/refresh",
         "/api/user/sms-code",
         "/api/user/theme",
+        "/api/user/language",
+        "/api/home",
         "/api/home/",
         "/api/discover/recommendations",
-        "/api/discover/insights"
+        "/api/discover/insights",
+        "/images"
     );
 
     public JwtAuthFilter(StringRedisTemplate stringRedisTemplate) {
@@ -92,18 +94,22 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
                 return unAuthorized(exchange, "token已被注销");
             }
 
-            Long userId = Long.valueOf(claims.getSubject());
-            String phone = (String) claims.get("userId");
+            String subject = claims.getSubject();
+            if (subject == null || !subject.matches("\\d+")) {
+                return unAuthorized(exchange, "token格式异常");
+            }
+            Long userId = Long.valueOf(subject);
+            String phone = String.valueOf(claims.get("userId"));
 
             ServerHttpRequest request = exchange.getRequest().mutate()
                     .header("X-User-Id", String.valueOf(userId))
-                    .header("X-User-Phone", phone != null ? phone : "")
+                    .header("X-User-Phone", phone != null && !phone.equals("null") ? phone : "")
                     .build();
 
             return chain.filter(exchange.mutate().request(request).build());
 
-        } catch (JwtException e) {
-            log.warn("JWT validation failed: {}", e.getMessage());
+        } catch (Exception e) {
+            log.warn("Auth failed: {}", e.getMessage());
             return unAuthorized(exchange, "token无效或已过期");
         }
     }

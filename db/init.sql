@@ -147,3 +147,70 @@ CREATE TABLE IF NOT EXISTS `tg_companion` (
   PRIMARY KEY (`id`),
   KEY `idx_active` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='同行招募表';
+
+-- 用户行为追踪表 (Kafka → Flink → MySQL/StarRocks 回流)
+CREATE TABLE IF NOT EXISTS `tg_user_behavior` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `poi_id` BIGINT DEFAULT NULL COMMENT 'POI ID',
+  `action_type` VARCHAR(32) NOT NULL COMMENT '行为类型: click/view/fav/share/search',
+  `target_id` VARCHAR(128) DEFAULT NULL COMMENT '目标ID',
+  `metadata` JSON DEFAULT NULL COMMENT '扩展数据',
+  `event_time` DATETIME NOT NULL COMMENT '事件时间',
+  `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_user_time` (`user_id`, `event_time`),
+  KEY `idx_poi` (`poi_id`),
+  KEY `idx_action_type` (`action_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户行为追踪表';
+
+-- 用户偏好画像表 (偏好学习引擎写入)
+CREATE TABLE IF NOT EXISTS `tg_user_profile` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `preferred_themes` JSON DEFAULT NULL COMMENT '偏好主题权重',
+  `preferred_activities` JSON DEFAULT NULL COMMENT '偏好活动权重',
+  `budget_preference` VARCHAR(16) DEFAULT NULL COMMENT '预算偏好: budget/comfort/luxury',
+  `pace_preference` VARCHAR(16) DEFAULT NULL COMMENT '节奏偏好: slow/compact/intensive',
+  `favorite_cities` JSON DEFAULT NULL COMMENT '偏好城市列表',
+  `preferred_season` VARCHAR(32) DEFAULT NULL COMMENT '偏好出行季节',
+  `visit_count` INT DEFAULT 0 COMMENT '出行次数',
+  `last_plan_time` DATETIME DEFAULT NULL COMMENT '最近一次规划时间',
+  `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户偏好画像表';
+
+-- ========================================
+-- MongoDB 集合设计 (文档说明)
+-- ========================================
+-- 1. poitable_list  (POI知识库全量表，含名称/坐标/标签/营业时间/票价/季节性等)
+-- 2. share_templates  (攻略卡片模板，含封面/布局/字体/配色)
+-- 3. weather_archives (天气历史归档，旅行结束后保存)
+-- 4. climate_diaries  (气候日记，整合天气+打卡点→可视化长图数据)
+-- 5. user_feature_vectors  (用户特征向量，用于协同过滤推荐)
+-- 6. system_config  (系统配置/开关/运营参数)
+
+-- ========================================
+-- Elasticsearch 索引设计 (文档说明)
+-- ========================================
+-- 索引: travel_poi
+-- 字段:
+--   - id (keyword)
+--   - name (text, ik_max_word)
+--   - description (text, ik_smart)
+--   - city (keyword)
+--   - location (geo_point)
+--   - tags (keyword array)
+--   - type (keyword)
+--   - sub_type (keyword)
+--   - price_level (integer)
+--   - rating (float)
+--   - heatScore (integer, 用于排序)
+--   - indoor (boolean)
+--   - seasonality (keyword)
+--   - opening_hours (keyword)
+--   - image_url (keyword)
+--   - create_time (date)
+

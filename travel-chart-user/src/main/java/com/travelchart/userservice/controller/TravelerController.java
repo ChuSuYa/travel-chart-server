@@ -1,6 +1,6 @@
 package com.travelchart.userservice.controller;
 
-import com.travelchart.common.model.Result;
+import com.travelchart.common.result.Result;
 import com.travelchart.userservice.dto.TravelerDTO;
 import com.travelchart.userservice.entity.Traveler;
 import com.travelchart.userservice.service.UserService;

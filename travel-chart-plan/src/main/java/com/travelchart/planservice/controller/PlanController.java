@@ -1,8 +1,8 @@
 package com.travelchart.planservice.controller;
 
-import com.travelchart.planservice.dto.GeneratePlanRequest;
+import com.travelchart.common.dto.GeneratePlanRequest;
 import com.travelchart.planservice.dto.PlanDTO;
-import com.travelchart.planservice.dto.Result;
+import com.travelchart.common.result.Result;
 import com.travelchart.planservice.entity.TravelPlan;
 import com.travelchart.planservice.service.PlanService;
 import io.swagger.v3.oas.annotations.Operation;

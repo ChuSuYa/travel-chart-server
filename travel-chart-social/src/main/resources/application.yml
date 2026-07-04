@@ -1,5 +1,7 @@
 server:
   port: 8084
+  servlet:
+    context-path: /api
 
 spring:
   application:
@@ -17,3 +19,5 @@ spring:
         server-addr: localhost:8848
         namespace: public
         file-extension: yaml
+
+

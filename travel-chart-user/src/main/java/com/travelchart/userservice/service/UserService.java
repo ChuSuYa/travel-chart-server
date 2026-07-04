@@ -180,6 +180,13 @@ public class UserService {
         userMapper.updateById(user);
     }
 
+    public void updateLanguage(Long userId, String language) {
+        User user = new User();
+        user.setUserId(userId);
+        user.setLanguage(language);
+        userMapper.updateById(user);
+    }
+
     public List<Traveler> listTravelers(Long userId) {
         return travelerMapper.selectByUserId(userId);
     }
@@ -234,6 +241,8 @@ public class UserService {
         dto.setExpiresIn(7200L);
         dto.setUserId(user.getUserId());
         dto.setNickname(user.getNickname() != null ? user.getNickname() : "旅行者");
+        dto.setPhone(user.getPhone());
+        dto.setAvatar(user.getAvatarUrl());
         dto.setNewUser(isNewUser);
         return dto;
     }

@@ -5,14 +5,15 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("tg_travel_plan")
+@TableName("tg_plan")
 public class TravelPlan {
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "plan_id", type = IdType.AUTO)
     private Long id;
 
     private Long userId;
 
     /** 目的地 */
+    @TableField("destinations")
     private String destination;
 
     /** 行程标题 */
@@ -34,6 +35,7 @@ public class TravelPlan {
     private String endDate;
 
     /** 总计天数 */
+    @TableField("day_count")
     private Integer totalDays;
 
     /** 总预算 */

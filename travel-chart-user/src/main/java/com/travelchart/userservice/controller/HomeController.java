@@ -13,17 +13,17 @@ public class HomeController {
     public Result<Map<String, Object>> getBanners() {
         List<Map<String, Object>> banners = new ArrayList<>();
 
-        banners.add(createBanner(1, "杭州", "/images/banner_hangzhou.jpg",
+        banners.add(createBanner(1, "杭州", "/static/images/banner_hangzhou.jpg",
                 "诗意江南 · 杭州", "西湖十景，人间天堂", "city_detail", "hangzhou"));
-        banners.add(createBanner(2, "成都", "/images/banner_chengdu.jpg",
-                "天府之国 · 成都", "火锅串串，熊猫故乡", "city_detail", "chengdu"));
-        banners.add(createBanner(3, "西安", "/images/banner_xian.jpg",
+        banners.add(createBanner(2, "成都", "/static/images/banner_chengdu.jpg",
+                "天府之国 · 成都", "天府广场，地标中心", "city_detail", "chengdu"));
+        banners.add(createBanner(3, "西安", "/static/images/banner_xian.jpg",
                 "古都长安 · 西安", "兵马俑阵，梦回大唐", "city_detail", "xian"));
-        banners.add(createBanner(4, "大理", "/images/banner_dali.jpg",
+        banners.add(createBanner(4, "大理", "/static/images/banner_dali.jpg",
                 "风花雪月 · 大理", "苍山洱海，风花雪月", "city_detail", "dali"));
-        banners.add(createBanner(5, "三亚", "/images/banner_sanya.jpg",
+        banners.add(createBanner(5, "三亚", "/static/images/banner_sanya.jpg",
                 "热带天堂 · 三亚", "碧海蓝天，椰风海韵", "city_detail", "sanya"));
-        banners.add(createBanner(6, "哈尔滨", "/images/banner_haerbin.jpg",
+        banners.add(createBanner(6, "哈尔滨", "/static/images/banner_haerbin.jpg",
                 "冰雪王国 · 哈尔滨", "冰雕世界，东方莫斯科", "city_detail", "haerbin"));
 
         Map<String, Object> result = new HashMap<>();
@@ -51,22 +51,22 @@ public class HomeController {
         List<Map<String, Object>> recommends = new ArrayList<>();
 
         recommends.add(createRecommend(1, "西湖", "杭州",
-                "/images/rec_westlake.jpg",
+                "/static/images/rec_westlake.jpg",
                 4.8, "免费", Arrays.asList("自然风光", "世界遗产")));
-        recommends.add(createRecommend(2, "宽窄巷子", "成都",
-                "/images/rec_kuanzhai.jpg",
-                4.6, "免费", Arrays.asList("古镇漫步", "美食")));
+        recommends.add(createRecommend(2, "安顺廊桥", "成都",
+                "/static/images/rec_kuanzhai.jpg",
+                4.7, "免费", Arrays.asList("锦江夜景", "古桥")));
         recommends.add(createRecommend(3, "兵马俑", "西安",
-                "/images/rec_bingmayong.jpg",
+                "/static/images/rec_bingmayong.jpg",
                 4.9, "120元", Arrays.asList("文化古迹", "世界遗产")));
         recommends.add(createRecommend(4, "洱海", "大理",
-                "/images/rec_erhai.jpg",
+                "/static/images/rec_erhai.jpg",
                 4.7, "免费", Arrays.asList("自然风光", "骑行")));
         recommends.add(createRecommend(5, "亚龙湾", "三亚",
-                "/images/rec_yalong.jpg",
+                "/static/images/rec_yalong.jpg",
                 4.8, "免费", Arrays.asList("海滨", "水上运动")));
         recommends.add(createRecommend(6, "冰雪大世界", "哈尔滨",
-                "/images/rec_bingxue.jpg",
+                "/static/images/rec_bingxue.jpg",
                 4.7, "180元", Arrays.asList("冰雪", "亲子")));
 
         Map<String, Object> result = new HashMap<>();

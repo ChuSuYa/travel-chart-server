@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface PlanMapper extends BaseMapper<TravelPlan> {
 
-    @Select("SELECT * FROM tg_travel_plan WHERE user_id = #{userId} AND status = #{status} ORDER BY update_time DESC")
+    @Select("SELECT * FROM tg_plan WHERE user_id = #{userId} AND status = #{status} ORDER BY update_time DESC")
     List<TravelPlan> selectByUserAndStatus(@Param("userId") Long userId, @Param("status") String status);
 
-    @Select("SELECT * FROM tg_travel_plan WHERE user_id = #{userId} ORDER BY update_time DESC")
+    @Select("SELECT * FROM tg_plan WHERE user_id = #{userId} ORDER BY update_time DESC")
     List<TravelPlan> selectByUserId(@Param("userId") Long userId);
 }

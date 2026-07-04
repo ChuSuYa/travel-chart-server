@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "travel-chart-search", url = "http://localhost:8084")
+@FeignClient(name = "travel-chart-search")
 public interface SearchFeignClient {
 
     @PostMapping("/api/feign/sync/poi")

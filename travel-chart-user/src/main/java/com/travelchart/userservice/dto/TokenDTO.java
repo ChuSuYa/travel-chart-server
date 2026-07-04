@@ -13,5 +13,7 @@ public class TokenDTO {
     private long expiresIn = 7200L;
     private Long userId;
     private String nickname;
+    private String phone;
+    private String avatar;
     private boolean isNewUser;
 }

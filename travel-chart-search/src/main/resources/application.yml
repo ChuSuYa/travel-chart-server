@@ -3,6 +3,19 @@ server:
 spring:
   application:
     name: travel-chart-search
+  config:
+    import: optional:nacos:travel-chart-search.yaml
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+      config:
+        import-check:
+          enabled: false
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
   elasticsearch:
     uris: http://localhost:9200
   kafka:
