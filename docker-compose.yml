@@ -177,9 +177,30 @@ services:
         condition: service_healthy
       plan-service:
         condition: service_healthy
+      manage-service:
+        condition: service_started
     environment:
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=nacos:8848
       - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=nacos:8848
+
+  manage-service:
+    build:
+      context: ./travel-chart-manage
+      dockerfile: Dockerfile
+    container_name: manage-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      nacos:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=nacos:8848
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/travelchart?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      - ADMIN_BOOTSTRAP_USERNAME=${ADMIN_BOOTSTRAP_USERNAME}
+      - ADMIN_BOOTSTRAP_PASSWORD=${ADMIN_BOOTSTRAP_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET:-travel-chart-jwt-secret-key-2024}
 
   search-service:
     build:

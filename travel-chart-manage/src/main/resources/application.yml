@@ -1,0 +1,25 @@
+server:
+  port: ${MANAGE_SERVICE_PORT:8086}
+
+spring:
+  application:
+    name: travel-chart-manage
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/travelchart?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR:localhost:8848}
+        namespace: public
+
+jwt:
+  secret: ${JWT_SECRET:travel-chart-jwt-secret-key-2024}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:7200}
+
+admin:
+  bootstrap:
+    username: ${ADMIN_BOOTSTRAP_USERNAME:}
+    password: ${ADMIN_BOOTSTRAP_PASSWORD:}

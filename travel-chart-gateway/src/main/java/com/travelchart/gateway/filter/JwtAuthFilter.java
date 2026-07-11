@@ -47,6 +47,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         "/api/user/refresh",
         "/api/user/token/refresh",
         "/api/user/sms-code",
+        "/api/manage/auth/login",
         "/api/user/theme",
         "/api/user/language",
         "/api/home",

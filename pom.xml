@@ -27,6 +27,7 @@
         <module>travel-chart-weather</module>
         <module>travel-chart-social</module>
         <module>travel-chart-search</module>
+        <module>travel-chart-manage</module>
     </modules>
 
     <properties>
