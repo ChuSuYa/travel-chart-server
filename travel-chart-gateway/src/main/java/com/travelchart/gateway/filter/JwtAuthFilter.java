@@ -65,6 +65,10 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
 
+        if (path.startsWith("/api/manage/")) {
+            return chain.filter(exchange);
+        }
+
         if (isWhiteListed(path)) {
             return chain.filter(exchange);
         }

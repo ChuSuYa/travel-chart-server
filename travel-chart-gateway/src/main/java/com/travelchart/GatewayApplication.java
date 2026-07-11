@@ -33,6 +33,9 @@ public class GatewayApplication {
             .route("search-service", r -> r
                 .path("/api/search/**")
                 .uri("lb://travel-chart-search"))
+            .route("manage-service", r -> r
+                .path("/api/manage/**")
+                .uri("lb://travel-chart-manage"))
             .build();
     }
 }
